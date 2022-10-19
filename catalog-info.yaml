@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: AdService
+  description: Ad Service
+  tags:
+    - java
+    - backend
+  links:
+    - url: https://pearjet-deploy.observe.devopsnow.cloud/applications/adservice-app
+      title: Deploy
+      icon: dashboard
+    - url: https://pearjet.observe.devopsnow.cloud/d/7e3EHpS7zz/k8s-apps?orgId=1&var-Cluster=pearjet-1&var-namespace=All&var-service=adservice&var-service_label=label_app
+      title: Observe
+      icon: dashboard
+  annotations:
+#     github.com/project-slug: OpsVerseIO/microservices-demo/src/adservice
+    circleci.com/project-slug: github/shivtej-opsverse/sample-apps
+    backstage.io/techdocs-ref: dir:.
+    argocd/app-name: adservice-app
+    prometheus.io/rule: container_memory_usage_bytes{pod=~"adservice-.*"},sum by (container) (rate(container_cpu_usage_seconds_total{pod=~"adservice-.*"}[5m]))
+    sonarqube.org/project-key: OpsVerseIO_installers
+    pagerduty.com/integration-key: 18729fbf5cc84a00d0c7d3bcfa4779e0
+    snyk.io/org-name: adityagirigoudar
+    snyk.io/project-ids: be3168db-af3f-4df1-b485-491200ea2820
+    fossa.io/project-name: sample-apps
+spec:
+  type: service
+  lifecycle: production
+  owner: AdService-team
+  system: online-store
